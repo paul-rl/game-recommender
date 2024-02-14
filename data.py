@@ -39,10 +39,27 @@ def get_user_friends(steam_id):
     res = requests.get(
         f'{constants.STEAM_API_LINK}{method}{key_param}&{steam_id_param}&{relation_param}'
     )
-    body = res.json()['friendslist']['friends']
-    df = pd.DataFrame(body)
-    df.drop(
-        columns=['relationship', 'friend_since'],
-        inplace=True
-    )
-    return df
+    try:
+        body = res.json()['friendslist']['friends']
+        df = pd.DataFrame(body)
+        df.drop(
+            columns=['relationship', 'friend_since'],
+            inplace=True
+        )
+        print(df)
+        return df
+    except Exception:
+        return None
+
+
+df = get_user_friends(MY_STEAM_ID)
+
+i = 0
+while i < 10:
+    new_df = get_user_friends(df['steamid'].values[i + 1])
+    if new_df is not None:
+        df = pd.concat([df, new_df])
+    i += 1
+
+df = df.drop_duplicates()
+print(df)
