@@ -1,0 +1,2 @@
+STEAM_API_KEY = 'EFD1EA17B0336D9424E753502DD7D6BC'
+STEAM_API_LINK = 'https://api.steampowered.com/'

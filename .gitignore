@@ -160,4 +160,4 @@ cython_debug/
 #.idea/
 
 # Avoid leaking API Key
-config.py
+constants.py
